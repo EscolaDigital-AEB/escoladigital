@@ -1,0 +1,6 @@
+
+src/escoladigital/pb_data/logs.db-wal
+src/escoladigital/pb_data/data.db
+src/escoladigital/pb_data/data.db-wal
+*.db-shm
+src/escoladigital/pb_data/logs.db
