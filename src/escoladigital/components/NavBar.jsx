@@ -53,8 +53,14 @@ const Navbar = () => {
             <li className="ml-10 text-sm uppercase font-bold hover:border-b pt-2.5">
               <Link legacyBehavior href="/">Home</Link>
             </li>
-           
-            
+      
+            <li className="ml-10 text-sm uppercase font-bold hover:border-b pt-2.5">
+              <Link legacyBehavior href="login">Login</Link>
+            </li>
+            <li className="ml-10 text-sm uppercase font-bold hover:border-b pt-2.5">
+              <Link legacyBehavior href="register">Criar conta</Link>
+            </li>
+      
            </ul>
           {/* Hamburger Icon */}
           <div

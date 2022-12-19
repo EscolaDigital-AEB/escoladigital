@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen min-w-screen">
       <Navbar />
 
       <Component {...pageProps} />
