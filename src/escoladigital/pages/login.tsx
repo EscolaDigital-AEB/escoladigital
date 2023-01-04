@@ -7,9 +7,18 @@ const login = () => {
   const [loading, setLoading] = React.useState(false);
 
 
+  const load = () => {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+
+
+  const handleSubmit = async (e:any) => {
+  e.preventDefault();
     setLoading(true);
     setError("");
     try {
@@ -27,9 +36,10 @@ const login = () => {
       if (data.error) {
         setError(data.error);
         setLoading(false);
+        
       } else {
         localStorage.setItem("token", data.token);
-        window.location.href = "/";
+        load();
       }
     } catch (error: any) {
       setError(error.message);
@@ -126,7 +136,7 @@ const login = () => {
 
           <div className=" md:mx-36 m-5  items-center justify-center">
             <a
-              href="#_"
+              onClick={handleSubmit}         
               className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
             >
               <span className="absolute left-0 block w-full h-0 transition-all bg-indigo-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>

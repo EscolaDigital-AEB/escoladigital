@@ -2,12 +2,85 @@ import React from 'react'
 
 const register = () => {
 
-    const [user, setUser] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [confirmPassword, setConfirmPassword] = React.useState("");
     const [error, setError] = React.useState("");
     const [loading, setLoading] = React.useState(false);
+    const [email , setEmail] = React.useState("");
+    const [confirmEmail , setConfirmEmail] = React.useState("");
+    const [name , setName] = React.useState("");
   
-    
+
+
+
+    //loading animation
+
+    const load = () => {
+      return (
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        </div>
+      );
+    };
+
+
+
+
+    const VerificarEmail = (e: Event) => {
+      e.preventDefault();
+      if (email !== confirmEmail) {
+        alert("Os emails devem ser iguais");
+      
+      } else {
+        setError("");
+      }
+    };
+
+    const VerificarPassword = (e: Event) => {
+      e.preventDefault();
+      if (password !== confirmPassword) {
+        alert("As passwords devem ser iguais");
+        //show error
+        alert(setError)
+      } else {
+        setError("");
+      }
+    };
+   
+
+    const handleSubmit = async (e:any) => {
+      e.preventDefault();
+      VerificarPassword(e);
+      VerificarEmail(e);
+      setLoading(true);
+      const role = "aluno";
+      setError("");
+      try {
+        const res = await fetch("http://localhost:3000/api/register ", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password, name, role }),
+        });
+        const data = await res.json();
+        if (data.error) {
+          setError(data.error);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          setConfirmEmail("");
+          setName("");
+          
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
   
 
   return (
@@ -38,8 +111,25 @@ const register = () => {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
+              <label htmlFor="name" className="sr-only">
+                Nome
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Nome"
+              />
+
+            </div>
+            <div>
               <label htmlFor="email-address" className="sr-only">
-                Nº Cartão
+                Email
               </label>
               <input
                 id="email-address"
@@ -47,12 +137,30 @@ const register = () => {
                 type="email"
                 autoComplete="email"
                 required
-                value={user}
-                onChange={(e) => setUser(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Endereço de email"
               />
             </div>
+          <div>
+              <label htmlFor="confirmEmail" className="sr-only">
+                Confirmar Email
+              </label>
+              <input
+                id="confirmEmail"
+                name="confirmEmail"
+                type="email"
+                autoComplete="email"
+                required
+                value={confirmEmail}
+                onChange={(e) => setConfirmEmail(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Confirmar Email"
+              />
+          </div>
+
+
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -68,38 +176,38 @@ const register = () => {
                 placeholder="Password"
               />
             </div>
+            <div>
+              <label htmlFor="confirmPassword" className="sr-only">
+                Confirmar Password
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Confirmar Password"
+              />
+
           </div>
+          </div>
+
+ 
+
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Lembrar de mim
-              </label>
+            
             </div>
             <br />
 
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Esqueceu a password?
-              </a>
-            </div>
           </div>
 
           <div className=" md:mx-36 m-5  items-center justify-center">
             <a
-              href="#_"
+              onClick={handleSubmit}
               className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
             >
               <span className="absolute left-0 block w-full h-0 transition-all bg-indigo-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
@@ -119,7 +227,7 @@ const register = () => {
                   ></path>
                 </svg>
               </span>
-              <span className="relative">Iniciar Sessão</span>
+              <span className="relative">Criar Conta!</span>
             </a>
           </div>
         </form>
