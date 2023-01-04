@@ -1,41 +1,14 @@
-import React from "react";
+import React from 'react'
 
-const login = () => {
-  const [user, setUser] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+const register = () => {
 
-
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user,
-          password,
-        }),
-      });
-      const data = await res.json();
-      if (data.error) {
-        setError(data.error);
-        setLoading(false);
-      } else {
-        localStorage.setItem("token", data.token);
-        window.location.href = "/";
-      }
-    } catch (error: any) {
-      setError(error.message);
-      setLoading(false);
-    }
-  };
+    const [user, setUser] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [error, setError] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
+  
+    
+  
 
   return (
     <div className="min-h-full min-w-full flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 ">
@@ -49,15 +22,15 @@ const login = () => {
             width="auto"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Entre na tua conta
+            Crie a tua conta
           </h2>
           <p className="mt-2 text-center text-md text-gray-600">
             Ou{" "}
             <a
-              href="#"
+              href="/login"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
-              Criar conta!
+              Entre na tua conta
             </a>
           </p>
         </div>
@@ -152,7 +125,7 @@ const login = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default login;
+export default register
