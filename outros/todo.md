@@ -3,7 +3,7 @@
 <h1> Coisas para fazer no projeto </h1>
   
   <ul>
-   <li> Fazer o setup do prisma </li>
+   <li> Fazer o setup do mongoose </li>
     <li> Fazer a DB </li>
     <li> Fazer a api de login e registro </li>
     <li> Fazer a api de posts </li>
