@@ -11,6 +11,8 @@ const Navbar = () => {
   const [navBg, setNavBg] = useState("#009FE5");
   const [linkColor, setLinkColor] = useState("#ffffff");
 
+  
+
   const handleNav = () => {
     setNav(!nav);
   };
@@ -112,7 +114,17 @@ const Navbar = () => {
             <ul className="uppercase">
               <Link href="/">
                 <li onClick={() => setNav(false)} className="py-4 text-sm font-bold">
-                  Home
+                  Inicio
+                </li>
+              </Link>
+              <Link href="login">
+                <li onClick={() => setNav(false)} className="py-4 text-sm font-bold">
+                  Login
+                </li>
+              </Link>
+              <Link href="register">
+                <li onClick={() => setNav(false)} className="py-4 text-sm font-bold">
+                  Criar conta
                 </li>
               </Link>
               
