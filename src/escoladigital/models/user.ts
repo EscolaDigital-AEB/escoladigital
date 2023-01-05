@@ -1,10 +1,9 @@
 // Import mongose
 import * as mongoose from 'mongoose';
-import { connectionFactory } from '../database/connection';
 
-
-
-
+// Import connectFactory
+import connectFactory from '../database/conn';
+let conn:any = connectFactory();
 
 /*
 password
@@ -44,8 +43,8 @@ const userSchema = new mongoose.Schema({
 
 // Create a model
 function modelFactory(): any {
-    const connection = connectionFactory();
-    return connection.model('User', userSchema);
+    // Connect to db
+    return conn.model('User', userSchema);
 }
 
 // User class
@@ -56,12 +55,12 @@ class User {
     role: string;
     model: any;
 
-    constructor(name: string, email: string, password: string, role: string, model: any) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.model = model;
+    constructor() {
+        this.name = "";
+        this.email = "";
+        this.password = "";
+        this.role = "default";
+        this.model = modelFactory();
     }
 
     // Getters
@@ -102,13 +101,6 @@ class User {
         this.model = model;
     }
 
-    // Methods
-    
-    // Return empty User Object
-    static emptyUser(): User {
-        return new User('', '', '', '', modelFactory());
-    }
-
     // Create user on db
     async createUser(): Promise<boolean> {
         try {
@@ -119,8 +111,10 @@ class User {
                 role: this.role
             });
             await user.save();
+            conn.close();
             return true;
         } catch (error) {
+            conn.close();
             return false;
         }
     }
@@ -130,9 +124,12 @@ class User {
     async getUserByEmail(): Promise<User> {
         try {
             const user = await this.model.findOne({ email: this.email });
+            conn.close();
             return user;
         } catch (error) {
-            return User.emptyUser();
+            console.log(error);
+            conn.close();
+            return new User();
         }
     }
 
@@ -140,9 +137,12 @@ class User {
     async getUserById(id: string): Promise<User> {
         try {
             const user = await this.model.findById(id);
+            conn.close();
             return user;
         } catch (error) {
-            return User.emptyUser();
+            console.log(error);
+            conn.close();
+            return new User();
         }
     }
     
@@ -150,8 +150,10 @@ class User {
     async getAllUsers(): Promise<User[]> {
         try {
             const users = await this.model.find();
+            conn.close();
             return users;
         } catch (error) {
+            conn.close();
             return [];
         }
     }
@@ -169,8 +171,10 @@ class User {
                         role: this.role
                     }
                 });
+            conn.close();
             return true;
         } catch (error) {
+            conn.close();
             return false;
         }
     }
@@ -181,22 +185,15 @@ class User {
             await this
                 .model
                 .deleteOne({ email:this.email });
+            conn.close();
             return true;
         } catch (error) {
+            conn.close();
             return false;
         }
     }
 }
 
-// Tests
-
-// Create user
-const user = new User(
-    'John Doe',
-    'john@demo.com',
-    '123456',
-    'admin',
-    modelFactory()
-);
+export { User };
 
 
