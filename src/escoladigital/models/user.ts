@@ -195,5 +195,3 @@ class User {
 }
 
 export { User };
-
-
