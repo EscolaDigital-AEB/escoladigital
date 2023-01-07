@@ -41,6 +41,17 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+// Delete
+// userSchema.statics.deleteUser = async function (email: string) {
+//     try {
+//         const user = await this.findOneAndDelete({ email: email
+//         });
+//         return user;
+//     } catch (error) {
+//         console.log(error);
+//         return null;
+//     }
+
 // Create a model
 function modelFactory(): any {
     // Connect to db
@@ -80,25 +91,25 @@ class User {
         return this.role;
     }
 
-    // Setters
-    setName(name: string) {
+    // Setters / Builders
+    setName(name: string): User {
         this.name = name;
+        return this;
     }
 
-    setEmail(email: string) {
+    setEmail(email: string): User {
         this.email = email;
+        return this;
     }
 
-    setPassword(password: string) {
+    setPassword(password: string): User {
         this.password = password;
+        return this;
     }
 
-    setRole(role: string){
+    setRole(role: string): User {
         this.role = role;
-    }
-
-    setModel(model: any){
-        this.model = model;
+        return this;
     }
 
     // Create user on db
@@ -121,9 +132,10 @@ class User {
      
     
     // Get user by email
-    async getUserByEmail(): Promise<User> {
+    static async getUserByEmail(email: string): Promise<User> {
         try {
-            const user = await this.model.findOne({ email: this.email });
+            const user = new User();
+            const result = await user.model.findOne({ email: email });
             conn.close();
             return user;
         } catch (error) {
@@ -134,9 +146,10 @@ class User {
     }
 
     // Get user by id
-    async getUserById(id: string): Promise<User> {
+    static async getUserById(id: string): Promise<User> {
         try {
-            const user = await this.model.findById(id);
+            const user = new User();
+            const result = await user.model.findById(id);
             conn.close();
             return user;
         } catch (error) {
@@ -180,14 +193,16 @@ class User {
     }
 
     // Delete user
-    async deleteUser(): Promise<boolean> {
+    static async deleteUser(email: string): Promise<boolean> {
         try {
-            await this
-                .model
-                .deleteOne({ email:this.email });
+            const user = new User();
+            await user.model.deleteOne({
+                email: email
+            });
             conn.close();
             return true;
-        } catch (error) {
+        }
+        catch (error) {
             conn.close();
             return false;
         }
