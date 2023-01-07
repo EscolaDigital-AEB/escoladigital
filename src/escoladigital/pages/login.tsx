@@ -1,7 +1,10 @@
 import React from "react";
+import Cookies from "ts-cookies";
+import bcrypt from "bcrypt-ts";
+import { useRouter } from "next/router";
 
 const login = () => {
-  const [user, setUser] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -16,9 +19,30 @@ const login = () => {
   };
 
 
+  const rotas = useRouter();
+
+  const options = {
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7, // 1 week
+    sameSite: true,
+  };
+
+
+
+
 
   const handleSubmit = async (e:any) => {
   e.preventDefault();
+  Cookies.set( email, options);
+  Cookies.set( password, options);
+
+  const user = {
+    email: email,
+    password: password,
+  };
+
+   user.password = bcrypt.hashSync(user.password, 10);
+   console.log(user);
     setLoading(true);
     setError("");
     try {
@@ -27,10 +51,9 @@ const login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          user,
-          password,
-        }),
+        body: JSON.stringify(
+          user
+        ),
       });
       const data = await res.json();
       if (data.error) {
@@ -38,7 +61,8 @@ const login = () => {
         setLoading(false);
         
       } else {
-        localStorage.setItem("token", data.token);
+        Cookies.set(data.token, options);
+        rotas.push("/dashboard");
         load();
       }
     } catch (error: any) {
@@ -46,6 +70,8 @@ const login = () => {
       setLoading(false);
     }
   };
+
+
 
   return (
     <div className="min-h-full min-w-full flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 ">
@@ -76,7 +102,7 @@ const login = () => {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">
-                Nº Cartão
+                Email
               </label>
               <input
                 id="email-address"
@@ -84,8 +110,8 @@ const login = () => {
                 type="email"
                 autoComplete="email"
                 required
-                value={user}
-                onChange={(e) => setUser(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Endereço de email"
               />
