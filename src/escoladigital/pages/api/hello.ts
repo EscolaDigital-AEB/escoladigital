@@ -11,12 +11,17 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   try {
-    const user = new User();
-    user.setName("John Doe");
-    user.setEmail("demo@gmail.com");
-    user.setPassword("123456");
-    user.setRole("admin");
-    user.createUser();
+    const user = new User()
+    .setEmail("demo@gmail.com")
+    .setName("Demo")
+    .setPassword("12345")
+    .setRole("admin");
+
+    User.deleteUser(user.getEmail());
+
+    console.log(user);
+
+    // Delete
   }
   catch (error) {
     console.log(error);
