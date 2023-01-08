@@ -41,12 +41,15 @@ const login = () => {
   };
 
 //func to run on page lodads if user has token != null
-  React.useEffect(() => {
-    const { token } = parseCookies();
-    if (token) {
-      rotas.push("/user/dashboard");
-    }
-  }, []);
+React.useEffect(() => {
+  const { token } = parseCookies();
+  if (token == "" || token == null || token == undefined) {
+      //dot nothing
+  } else {
+    rotas.push("/user/dashboard");
+  }
+}, []);
+
 
 
 
@@ -77,17 +80,23 @@ const login = () => {
         body: JSON.stringify(user),
       });
       const data = await res.json();
-      console.log(data);
+      
       if (data.error) {
         setError(data.error);
         setLoading(false);
       } else {
+        
         nookies.set(null, "token", data.token, {
           path: "/",
           maxAge: 60 * 60 * 24 * 7, // 1 week
           sameSite: true,
         });
-        rotas.push("/dashboard");
+        nookies.set(null, "_id", data._id, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7, // 1 week
+          sameSite: true,
+        });
+        rotas.push("/user/dashboard");
       }
     } catch (error) {
       setError("Ocorreu um erro ao fazer login");

@@ -67,6 +67,7 @@ const register = () => {
           console.log(data);
           if (data.error) {
             setError(data.error);
+            alert ("O email ja existe  ")
           } else {
             nookies.set(null, "token", data.token, {
               path: "/",

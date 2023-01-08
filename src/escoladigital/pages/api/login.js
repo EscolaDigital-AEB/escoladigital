@@ -22,9 +22,9 @@ export default async function handler(req, res) {
   if (response) {
  //create a unique token for the user
  const token = jwt.sign({ _id: response._id }, process.env.TOKEN_SECRET);
- //then send the token and the user data to the client
-  res.setHeader("auth-token", token).json({token: token, user: response});
- 
+ //then send the token and the user data and _id to the client
+ res.setHeader("auth-token", token).json({token: token, user: response, _id: response._id});
+
 }
 else {
   res.status(500).json({message: "Login failed"});
