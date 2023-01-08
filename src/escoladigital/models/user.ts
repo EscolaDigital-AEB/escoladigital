@@ -74,6 +74,8 @@ class User {
         this.model = modelFactory();
     }
 
+
+
     // Getters
     getName() {
         return this.name;
@@ -209,4 +211,6 @@ class User {
     }
 }
 
-export { User };
+module.exports = mongoose.models.User || mongoose.model("User", userSchema);
+
+export default User  ;

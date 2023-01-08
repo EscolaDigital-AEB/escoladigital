@@ -20,6 +20,7 @@
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "js-cookies": "^1.0.4",
+    "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
     "next": "13.0.6",
     "next-cookies": "^2.0.3",

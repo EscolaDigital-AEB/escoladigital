@@ -1,7 +1,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next'
-import { User } from '../../models/user';
-
+import   User    from '../../models/user';
+import bcrypt from 'bcrypt-ts';
 //return hi
 export default (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method == "GET") res.redirect("/register");
@@ -30,17 +30,18 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     */ 
 
     // register
+    // async function to crypt user password before save it on db
+
     try {
-      const user = new User()
-      .setEmail("demo@gmail.com")
-      .setName("Demo")
-      .setPassword("12345")
-      .setRole("admin");
-  
-      // Create
-      user.createUser();
-  
-      console.log(user);
+      
+    
+      //crypt password
+   
+
+      //create user
+    
+
+
   
       // Delete
     }
@@ -48,9 +49,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       console.log(error);
     }
 
-    res.status(200).json({
-        status: status,
-    });
+    res.status(200).json(userData)
 }
 
     
