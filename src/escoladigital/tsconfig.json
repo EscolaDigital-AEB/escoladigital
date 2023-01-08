@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/NavBar.jsx", "services/passcrypt.ts", "services/userController.ts", "pages/api/login.js", "pages/api/register.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/NavBar.jsx", "services/passcrypt.ts", "services/userController.ts", "pages/api/login.js", "pages/api/register.js", "pages/login.jsx"],
   "exclude": ["node_modules"]
 }

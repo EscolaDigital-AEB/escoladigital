@@ -1,6 +1,5 @@
 import login from "../../services/userDAO.js";
 
-
 export default async function handler(req, res) {
   if (req.method == "GET") res.redirect("/login");
   let body = {};
@@ -14,9 +13,12 @@ export default async function handler(req, res) {
     password: body.password,
   };
 
-  
-
   const response = await login.login(user.email, user.password);
 
+  if (response) {
+ //create a unique token for the user
+ 
+
+  }
   res.status(200).json(response);
 }

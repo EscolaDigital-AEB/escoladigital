@@ -1,6 +1,7 @@
 import React from "react";
-import Cookies from "ts-cookies";
-import bcrypt from "bcrypt-ts";
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import nookies from "nookies";
+import bcrypt from "bcryptjs";
 import { useRouter } from "next/router";
 
 const login = () => {
@@ -28,20 +29,31 @@ const login = () => {
   };
 
 
-
-
-
-  const handleSubmit = async (e:any) => {
-  e.preventDefault();
-  Cookies.set( email, options);
-  Cookies.set( password, options);
-
-  const user = {
-    email: email,
-    password: password,
+  const HandleRememberMe = (e) => {
+    if (e.target.checked) {
+      setCookie("rememberMe", "true", options);
+    } else {
+      setCookie("rememberMe", "false");
+    }
   };
 
-   user.password = bcrypt.hashSync(user.password, 10);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+ 
+    setCookie("email", email, options);
+   
+ 
+ 
+  
+  
+    const user = {
+      email: email,
+      password: password
+    }
+    user.password = bcrypt.hashSync(user.password, 10);
+    setCookie("password", password, options);
    console.log(user);
     setLoading(true);
     setError("");
@@ -61,11 +73,11 @@ const login = () => {
         setLoading(false);
         
       } else {
-        Cookies.set(data.token, options);
+       setCookie(data.token, options);
         rotas.push("/dashboard");
         load();
       }
-    } catch (error: any) {
+    } catch (error) {
       setError(error.message);
       setLoading(false);
     }
@@ -90,7 +102,7 @@ const login = () => {
           <p className="mt-2 text-center text-md text-gray-600">
             Ou{" "}
             <a
-              href="#"
+              href="register"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               Criar conta!
@@ -136,6 +148,7 @@ const login = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
+              onClick={HandleRememberMe}
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"

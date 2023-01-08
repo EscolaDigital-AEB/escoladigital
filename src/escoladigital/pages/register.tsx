@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import Router, { useRouter } from "next/router";
 const register = () => {
 
     const [password, setPassword] = React.useState("");
@@ -41,44 +42,45 @@ const register = () => {
       if (password !== confirmPassword) {
         alert("As passwords devem ser iguais");
         //show error
-        alert(setError)
+        console.log(setError)
       } else {
         setError("");
       }
     };
    
 
-    const handleSubmit = async (e:any) => {
+    const handleSubmit = (e:any) => {
       e.preventDefault();
+
       VerificarPassword(e);
       VerificarEmail(e);
-      setLoading(true);
-      const role = "aluno";
-      setError("");
-      try {
-        const res = await fetch("http://localhost:3000/api/register ", {
+    
+          const data = {
+            name: name,
+            email: email,
+            password: password       
+
+        };
+  
+        fetch("api/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password, name, role }),
-        });
-        const data = await res.json();
-        if (data.error) {
-          setError(data.error);
-          setLoading(false);
-        } else {
-          setLoading(false);
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-          setConfirmEmail("");
-          setName("");
-          
-        }
-      } catch (error) {
-        console.log(error);
-      }
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status = 200) {
+             Router.push("/[dashboard]");
+            } else {
+              alert("Erro ao cadastrar");
+            }
+          }
+          );
+  
+      
+    
     };
 
   
