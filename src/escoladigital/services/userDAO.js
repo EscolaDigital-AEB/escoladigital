@@ -12,9 +12,6 @@ import bcrypt from "bcryptjs";
 async function getUserById(id) {
   const { db } = await connect();
   
-  const query = {
-    _id: id
-  }
 
   const opcoes = {
     projection: {
@@ -24,8 +21,9 @@ async function getUserById(id) {
 
   const collection = db.collection("Users");
 
-  const response = await collection
-    .findOne(query, opcoes);
+  const response = await collection.find({ _id: ObjectId(id) }, opcoes);
+
+  
 
   if (response) {
     return response;
