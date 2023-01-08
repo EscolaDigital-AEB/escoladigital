@@ -1,8 +1,11 @@
 import React from "react";
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import nookies from "nookies";
-import bcrypt from "bcryptjs";
+
 import { useRouter } from "next/router";
+
+
+
 
 const login = () => {
   const [email, setEmail] = React.useState("");
@@ -38,49 +41,52 @@ const login = () => {
   };
 
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   
  
     setCookie("email", email, options);
-   
- 
- 
   
-  
+
     const user = {
       email: email,
       password: password
     }
-    user.password = bcrypt.hashSync(user.password, 10);
-    setCookie("password", password, options);
+    
+   
    console.log(user);
     setLoading(true);
     setError("");
-    try {
+
+    try 
+    {
       const res = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          user
-        ),
+        body: JSON.stringify(user),
       });
       const data = await res.json();
+      console.log(data);
       if (data.error) {
         setError(data.error);
         setLoading(false);
-        
       } else {
-       setCookie(data.token, options);
+        nookies.set(null, "token", data.token, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7, // 1 week
+          sameSite: true,
+        });
         rotas.push("/dashboard");
-        load();
       }
     } catch (error) {
-      setError(error.message);
+      setError("Ocorreu um erro ao fazer login");
       setLoading(false);
     }
+    
+   
   };
 
 
