@@ -4,7 +4,7 @@
 // > Editar
 // > Deletar
 
-import { connect } from "../utils/dbmongo";
+import { connect } from "../services/dbmongo";
 import bcrypt from "bcryptjs";
 
 async function login (email, password) { 
