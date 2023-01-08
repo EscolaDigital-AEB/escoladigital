@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt-ts';
 import { User } from '../models/user';
+import { json } from 'stream/consumers';
 
 // async function to crypt user password before save it on db
 async function cryptPassword(password: string): Promise<string> {
@@ -50,18 +51,24 @@ async function register(name:string , email: string, password: string, role: str
     const hash = await cryptPassword(user.getPassword());
     user.setPassword(hash);
 
-    //save user on db
-    const result = await user.createUser();
-    if (result) {
-        return user;
-    }
+    //save user on db then validate
+    const result = await user.createUser()
+    .then((result) => {
+        if (result) {
+            return result;
+        }
+        return new User();
+    })
+    .catch((error) => {
+        console.log(error);
+        return new User();
+    });
+}
+catch (error) {
+    console.log(error);
     return new User();
 }
- catch (error) {
-    console.log(error);
-
-    }
-    return new User();
+    return user;
 }
  
 

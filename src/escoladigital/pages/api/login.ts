@@ -5,6 +5,7 @@ Get the user data from the database and return it to the client
 import { NextApiRequest, NextApiResponse } from 'next'
 import { login } from '../../services/userController'
 
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method == "GET") res.redirect("/login");
     let body = {};
