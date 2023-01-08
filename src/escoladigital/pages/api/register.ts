@@ -1,6 +1,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next'
-import { register } from '../../services/userController'
+import { User } from '../../models/user';
+
 //return hi
 export default (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method == "GET") res.redirect("/register");
@@ -10,18 +11,46 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       body = req.body
     }
 
-    const user = {
+    const userData = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
         role: "user",
     };
 
-    const response = register(user.name, user.email, user.password, user.role);
 
-    res.status(200).json(response);
-
-    
+    /*
+    json exemple
+    {
+        "name": "demo",
+        "email": "demo@gmail.com",
+        "password": "12345",
+        "role": "user"
     }
+    */ 
+
+    // register
+    try {
+      const user = new User()
+      .setEmail("demo@gmail.com")
+      .setName("Demo")
+      .setPassword("12345")
+      .setRole("admin");
+  
+      // Create
+      user.createUser();
+  
+      console.log(user);
+  
+      // Delete
+    }
+    catch (error) {
+      console.log(error);
+    }
+
+    res.status(200).json({
+        status: status,
+    });
+}
 
     

@@ -36,42 +36,8 @@ async function login(email: string, password: string): Promise<User> {
     }
 
 }
-
-//async fuction to register user
-async function register(name:string , email: string, password: string, role: string): Promise<User> {
-    //get data from client
-    const user = new User();
-    try {
-    user.setName(name);
-    user.setEmail(email);
-    user.setPassword(password);
-    user.setRole(role);
-
-    //crypt password
-    const hash = await cryptPassword(user.getPassword());
-    user.setPassword(hash);
-
-    //save user on db then validate
-    const result = await user.createUser()
-    .then((result) => {
-        if (result) {
-            return result;
-        }
-        return new User();
-    })
-    .catch((error) => {
-        console.log(error);
-        return new User();
-    });
-}
-catch (error) {
-    console.log(error);
-    return new User();
-}
-    return user;
-}
  
 
 
-export { login, register}
+export { login }
     

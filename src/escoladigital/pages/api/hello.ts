@@ -17,7 +17,7 @@ export default function handler(
     .setPassword("12345")
     .setRole("admin");
 
-    // User.deleteUser(user.getEmail();
+    // Create
     user.createUser();
 
     console.log(user);
