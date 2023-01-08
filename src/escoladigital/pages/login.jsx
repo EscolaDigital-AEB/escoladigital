@@ -40,8 +40,16 @@ const login = () => {
     }
   };
 
+//func to run on page lodads if user has token != null
+  React.useEffect(() => {
+    const { token } = parseCookies();
+    if (token) {
+      rotas.push("/user/dashboard");
+    }
+  }, []);
 
-  
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
