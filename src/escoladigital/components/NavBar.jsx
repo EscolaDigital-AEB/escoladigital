@@ -11,13 +11,24 @@ const Navbar = () => {
   const [navBg, setNavBg] = useState("#009FE5");
   const [linkColor, setLinkColor] = useState("#ffffff");
 
-  
+  //if navbar is on "user/dashboard" page, dont show it
+ 
 
+  //hide navbar 
+
+
+
+
+ 
+
+
+  
   const handleNav = () => {
     setNav(!nav);
   };
 
   useEffect(() => {
+   
     const handleShadow = () => {
       if (window.scrollY >= 90) {
         setShadow(true);
@@ -26,10 +37,13 @@ const Navbar = () => {
       }
     };
     window.addEventListener("scroll", handleShadow);
+
+
   }, []);
 
   return (
     <div
+    
       style={{ backgroundColor: `${navBg}` }}
       className={
         shadow
