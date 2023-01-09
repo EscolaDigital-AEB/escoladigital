@@ -52,6 +52,7 @@ export default async function handler(req, res) {
 
       let all = {
         all: response,
+        quantidade: count.quantidade,
        
       };
 
