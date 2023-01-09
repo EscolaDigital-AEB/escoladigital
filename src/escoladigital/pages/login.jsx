@@ -185,7 +185,7 @@ useEffect(() => {
           </div>
 
           <div className=" md:mx-36 m-5  items-center justify-center">
-          <Link href={handleSubmit} onClick={handleSubmit}  legacyBehavior>
+          <Link href={""} onClick={handleSubmit}  legacyBehavior>
             <a
                       
               className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
