@@ -89,6 +89,7 @@ return (
       <div className=" flex-col items-center justify-center">
         <img
           className="mx-auto h-70 w-auto"
+          rel="preconnect"
           src="/assets/logoEscolaDigital(3).png"
           alt="logo"
           height="auto"

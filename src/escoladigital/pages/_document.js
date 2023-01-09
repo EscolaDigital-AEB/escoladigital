@@ -7,7 +7,9 @@ export default function Document() {
       
         
         <meta name="description" content="AEB Digital" />
-        <link rel="icon" href="/public/assets/logoEscolaDigital(3).png" />
+        <link rel="icon" href="/assets/logoEscolaDigital(3).png"
+        width="auto"
+        height="auto" />
       
       <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"></link>
       </Head>

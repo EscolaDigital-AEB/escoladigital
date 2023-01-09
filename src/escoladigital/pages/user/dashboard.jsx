@@ -6,6 +6,13 @@ import { useRouter } from "next/router";
 
 const dashboard = () => {
 
+    const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(true);
+   //fecth user count data
+    const [count, setCount] = useState({});
+    const [loadingCount, setLoadingCount] = useState(true);
+
+
     // Get user _id cokie
     const { _id } = parseCookies();
 
@@ -32,7 +39,7 @@ const dashboard = () => {
                 })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
+                   
                     setUser(data);
                     setLoading(false);
                 });
@@ -45,9 +52,41 @@ const dashboard = () => {
 
 
     //get user data
-    const [user, setUser] = useState({});
-    const [loading, setLoading] = useState(true);
+
     
+    React.useEffect(() => {
+        try{
+            fetch("/api/getusersAll",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    },
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                
+                setCount(data);
+
+                setLoadingCount(false);
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
+    }, []);
+    
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        destroyCookie(null, "token", {
+            path: "/",
+          });
+          destroyCookie(null, "_id", {
+            path: "/",
+          });
+          rotas.push("/login");
+    }
+
 
   return (
 
@@ -90,7 +129,7 @@ const dashboard = () => {
 
                     <li className="rounded-sm">
                         <a
-                            href="#"
+                            onClick={handleLogout}
                             className="flex items-center p-2 space-x-3 rounded-md"
                         >
                             <svg
@@ -114,14 +153,14 @@ const dashboard = () => {
             </div>
         </div>
     </div>
-    <div className="container mx-auto mt-12">
+    <div className="container mx-12 mt-12">
         <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
             <div className="w-full px-4 py-5 bg-white rounded-lg shadow">
                 <div className="text-sm font-medium text-gray-500 truncate">
                     Total users
                 </div>
                 <div className="mt-1 text-3xl font-semibold text-gray-900">
-                    12,00
+                    {loadingCount ? ( <p>loading...</p> ) : ( <p>{count.quantidade}</p> )}
                 </div>
             </div>
 
