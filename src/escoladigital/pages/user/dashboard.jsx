@@ -63,11 +63,13 @@ const dashboard = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+            console.log(data.all)
           setCount(data);
           setUsers(data);
+          console.log(setUsers)
 
           setLoadingCount(false);
-        });
+        })
     } catch (err) {
       console.log(err);
     }
@@ -95,49 +97,7 @@ const dashboard = () => {
     const { id } = e.target;
   };
 
-    // map users 
-    Array.isArray(users.map(users)) && users.map(users).length > 0
-    ? console.log(users.map(users))
-    : console.log("no users");
-    
-    const mapUsers = users.map((user) => (
-        <tr key={user._id}>
-          <td className="px-6 py-4 whitespace-nowrap">
-            <div className="flex items-center">
-              <div className="ml-4">
-                <div className="text-sm font-medium text-gray-900">
-                  {user.name}
-                </div>
-                <div className="text-sm text-gray-500">{user.email}</div>
-              </div>
-            </div>
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap">
-            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-              {user.role}
-            </span>
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {user.createdAt}
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            <button
-              id={user._id}
-              onClick={handleEdit}
-              className="text-indigo-600 hover:text-indigo-900"
-            >
-              Edit
-            </button>
-            <button
-              id={user._id}
-              onClick={handleDelete}
-              className="text-red-600 hover:text-red-900"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      ));
+ 
   
 
 
