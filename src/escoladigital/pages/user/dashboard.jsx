@@ -6,7 +6,10 @@ import { useRouter } from "next/router";
 
 const dashboard = () => {
 
- //check if user has token
+    // Get user _id cokie
+    const { _id } = parseCookies();
+
+    //check if user has token
  
     const rotas = useRouter();
 
@@ -16,6 +19,28 @@ const dashboard = () => {
         if (token == "" || token == null || token == undefined) {
             rotas.push("/login");
         }
+        else{
+            try{
+                fetch("/api/getuser", 
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ id: _id }),
+
+                })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setUser(data);
+                    setLoading(false);
+                });
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
     }, []);
 
 
@@ -23,9 +48,6 @@ const dashboard = () => {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
     
-  
-
-
 
   return (
 
@@ -39,7 +61,7 @@ const dashboard = () => {
             <div className="flex items-center">
                 <h2 className="text-xl font-bold">Dashboard</h2>
             </div>
-
+            <p>{user.name}</p>
             <div className="flex-1">
                 <ul className="pt-2 pb-4 space-y-1 text-sm">
                     <li className="rounded-sm">
