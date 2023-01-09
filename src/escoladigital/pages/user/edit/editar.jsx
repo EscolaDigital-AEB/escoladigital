@@ -1,19 +1,18 @@
 import React from "react";
 import { useState } from "react";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
-import nookies from "nookies";
+import { parseCookies } from "nookies";
 import { useRouter } from "next/router";
 
 const editar = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const [email, setEmail] = React.useState("");
-  const [confirmEmail, setConfirmEmail] = React.useState("");
-  const [name, setName] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [name, setName] = useState("");
 
   const rotas = useRouter();
 
@@ -86,6 +85,7 @@ const editar = () => {
                 console.log(data.error);
             } else {
                 console.log(data);
+                alert ("Dados alterados com sucesso");
                 rotas.push("/user/dashboard");
             }
         }

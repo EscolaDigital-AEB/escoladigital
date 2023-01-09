@@ -1,7 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
-import nookies from "nookies";
+import { useState, useEffect } from "react";
+import { parseCookies, destroyCookie } from "nookies";
+
 import { useRouter } from "next/router";
 
 const dashboard = () => {
@@ -18,7 +18,7 @@ const dashboard = () => {
   const rotas = useRouter();
 
   //if user dont have token go to login page
-  React.useEffect(() => {
+  useEffect(() => {
     const { token } = parseCookies();
     if (token == "" || token == null || token == undefined) {
       rotas.push("/login");
@@ -57,17 +57,6 @@ const dashboard = () => {
       path: "/",
     });
     rotas.push("/login");
-  };
-
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    const { id } = e.target;
-    rotas.push(`/user/edit/${id}`);
-  };
-
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    const { id } = e.target;
   };
 
   return (

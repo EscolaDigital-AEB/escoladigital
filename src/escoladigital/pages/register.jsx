@@ -1,17 +1,18 @@
 import React from "react";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import nookies from "nookies";
 
 
 const register = () => {
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [error, setError] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-  const [confirmEmail, setConfirmEmail] = React.useState("");
-  const [name, setName] = React.useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+ 
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [name, setName] = useState("");
+
+ const rota = useRouter();
 
   //loading animation
 
@@ -74,7 +75,7 @@ const register = () => {
               maxAge: 60 * 60 * 24 * 7, // 1 week
               sameSite: true,
             });
-            Router.push("/login");
+            rota.push("/login");
           }
         });
     } catch (error) {

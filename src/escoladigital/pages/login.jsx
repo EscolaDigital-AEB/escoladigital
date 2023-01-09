@@ -1,17 +1,17 @@
 import React from "react";
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import { parseCookies, setCookie} from 'nookies';
 import nookies from "nookies";
-
+import { useState, useEffect} from "react";
 import { useRouter } from "next/router";
 
 
 
 
 const login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
 
   const load = () => {
@@ -41,7 +41,7 @@ const login = () => {
   };
 
 //func to run on page lodads if user has token != null
-React.useEffect(() => {
+useEffect(() => {
   const { token } = parseCookies();
   if (token == "" || token == null || token == undefined) {
       //dot nothing
