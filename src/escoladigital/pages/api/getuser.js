@@ -4,7 +4,7 @@ export default async function handler(req, res) {
 
     if (req.method == "POST") {
 
-        const id = req.body.id
+
 
         console.log(req.body.id)
         const response = await getUserById.getUserById(req.body.id);
