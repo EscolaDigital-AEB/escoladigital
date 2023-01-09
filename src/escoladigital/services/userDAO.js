@@ -4,33 +4,9 @@
 // > Editar
 // > Deletar
 
+import { ObjectID } from "bson";
 import { connect } from "../services/dbmongo";
 import bcrypt from "bcryptjs";
-
-
-//async function to get a single user by id 
-async function getUserById(id) {
-  const { db } = await connect();
-  
-
-  const opcoes = {
-    projection: {
-      password: false,
-    },
-  };
-
-  const collection = db.collection("Users");
-
-  const response = await collection.find({ _id: ObjectId(id) }, opcoes);
-
-  
-
-  if (response) {
-    return response;
-  } else {
-    return null;
-  }
-}
 
 
 //async func get all users that are active
@@ -59,6 +35,34 @@ async function getAllUsers(status) {
     return null;
   }
 }
+
+//async function to get a single user by id 
+async function getUserById(id) {
+  const { db } = await connect();
+  
+  const query = {
+    _id: ObjectID(id)
+  }
+
+  const opcoes = {
+    projection: {
+      password: false,
+    },
+  };
+
+  const collection = db.collection("Users");
+
+  const response = await collection.findOne(query._id, opcoes);
+
+  if (response) {
+    return response;
+  } else {
+    return null;
+  }
+}
+
+
+
 
 
 
