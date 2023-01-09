@@ -4,22 +4,20 @@ import { parseCookies, destroyCookie } from "nookies";
 
 import { useRouter } from "next/router";
 
-const dashboard = () => {
+const Dashboard = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
 
 
-  // Get user _id cokie
-  const { _id } = parseCookies();
 
-  //check if user has token
-
-  const rotas = useRouter();
 
   //if user dont have token go to login page
   useEffect(() => {
-    const { token } = parseCookies();
+   const { token } = parseCookies();
+      
+  const { _id } = parseCookies();
+  const rotas = useRouter();
     if (token == "" || token == null || token == undefined) {
       rotas.push("/login");
     } else {
@@ -73,6 +71,7 @@ const dashboard = () => {
             <div className="flex-1">
               <ul className="pt-2 pb-4 space-y-1 text-sm">
                 <li className="rounded-sm">
+                <Link legacyBehavior>
                   <a
                     href="/"
                     className="flex items-center p-2 space-x-5 rounded-md"
@@ -93,9 +92,11 @@ const dashboard = () => {
                     </svg>
                     <span>Home</span>
                   </a>
+                </Link>
                 </li>
 
                 <li className="rounded-sm">
+                <Link legacyBehavior>
                   <a
                     href="/user/edit/editar"
                     className="flex items-center p-2 space-x-3 rounded-md"
@@ -121,8 +122,10 @@ const dashboard = () => {
                     </svg>
                     <span>Configurações</span>
                   </a>
+                </Link>
                 </li>
                 <li className="rounded-sm">
+                <Link legacyBehavior>
                   <a
                     onClick={handleLogout}
                     className="flex items-center p-2 space-x-3 rounded-md"
@@ -143,6 +146,7 @@ const dashboard = () => {
                     </svg>
                     <span>Logout</span>
                   </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -160,4 +164,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

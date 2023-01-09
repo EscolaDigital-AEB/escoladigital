@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/router";
 
@@ -36,7 +36,7 @@ const Editar = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const { _id } = parseCookies();
     if (_id == "" || _id == null || _id == undefined) {
       rotas.push("/login");
@@ -203,6 +203,7 @@ const Editar = () => {
           </div>
 
           <div className=" md:mx-36 m-5  items-center justify-center">
+          <Link legacyBehavior>
             <a
               onClick={handleSubmit}
               className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
@@ -226,6 +227,8 @@ const Editar = () => {
               </span>
               <span className="relative">Editar Conta!</span>
             </a>
+          </Link>
+          
           </div>
         </form>
       </div>

@@ -198,6 +198,7 @@ useEffect(() => {
           </div>
 
           <div className=" md:mx-36 m-5  items-center justify-center">
+          <Link legacyBehavior>
             <a
               onClick={handleSubmit}         
               className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
@@ -221,6 +222,7 @@ useEffect(() => {
               </span>
               <span className="relative">Iniciar Sessão</span>
             </a>
+            </Link>
           </div>
         </form>
       </div>
