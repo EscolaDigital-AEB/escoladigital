@@ -7,27 +7,29 @@ export default async function handler(req, res) {
       let count = {
         quantidade: response.length,
       };
-      //get all id
+
+      //map response and then put it into object allUsers
+      let allUsers = response.map((user) => {
+        return {
+          
+          id: user._id,
+          nome: user.nome,
+          email: user.email,
+    
+          role : user.role,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt
+        };
+      });
+
+      allUsers.push(count);
+      
 
 
 
-     
+console.log(allUsers);
 
-      let all = {
-        all: response,
-        quantidade: count.quantidade,
-       
-      };
-
-      // put all in array
-
-let arrayAll = Object.values(all);
-console.log(arrayAll);
-
-
-      res.json(arrayAll);
-      //
-
+      res.json(allUsers);
      
     } else {
       res.status(500).json({ message: "No users found" });

@@ -10,7 +10,7 @@ const dashboard = () => {
   //fecth user count data
   const [count, setCount] = useState({});
   const [loadingCount, setLoadingCount] = useState(true);
-  const [users, setUsers] = useState([{}]);
+  let [usersAll, setUsers] = useState();
 
   // Get user _id cokie
   const { _id } = parseCookies();
@@ -64,9 +64,14 @@ const dashboard = () => {
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
-          setCount(data);
-          setUsers(data);
-          
+        
+         
+            setUsers(data);
+            
+
+          //map usersAll
+
+          console.log(usersAll);
 
           setLoadingCount(false);
         })
@@ -97,58 +102,47 @@ const dashboard = () => {
     const { id } = e.target;
   };
 
- 
-  //map Users
-  
-    const mapUsers = users.map((user) => {
 
-       
-        
+  setUsers = (users) => {
+    const usersAll = users.map((user) => {  
         return (
-            <tr key={user._id}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                        <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">
-                                {user.name}
-                            </div>
-                            <div className="text-sm text-gray-500">
-                                {user.email}
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{user.role}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {user.status}
-                    </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {user.createdAt}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button
-                        id={user._id}
-                        onClick={handleEdit}
-                        className="text-indigo-600 hover:text-indigo-900"
-                    >
-                        Editar
-                    </button>
-                    <button
-                        id={user._id}
-                        onClick={handleDelete}
-                        className="text-indigo-600 hover:text-indigo-900"
-                    >
-                        Excluir
-                    </button>
-                </td>
-            </tr>
-        );
-
+            <div className="flex flex-col space-y-2">
+              <div className="flex flex-row space-x-2">
+                <div className="flex flex-col">
+                  <p className="text-sm font-semibold">Nome</p>
+                  <p className="text-sm font-semibold">Email</p>
+                  <p className="text-sm font-semibold">Role</p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-sm">{user.name}</p>
+                  <p className="text-sm">{user.email}</p>
+                  <p className="text-sm">{user.role}</p>
+                </div>
+              </div>
+              <div className="flex flex-row space-x-2">
+                <button
+                  id={user._id}
+                  onClick={handleEdit}
+                  className="flex items-center justify-center w-24 h-10 rounded-md bg-blue-600 text-white text-sm font-semibold"
+                >
+                  Editar
+                </button>
+                <button
+                  id={user._id}
+                  onClick={handleDelete}
+                  className="flex items-center justify-center w-24 h-10 rounded-md bg-red-600 text-white text-sm font-semibold"
+                >
+                  Deletar
+                </button>
+              </div>
+            </div>
+          );
     });
+                
+
+  // map users
+   
+
 
 
   return (
@@ -228,7 +222,10 @@ const dashboard = () => {
               </div>
             </div>
 
-            
+                
+     
+             // call usersAll
+            {usersAll}
         
                 
 
@@ -238,5 +235,6 @@ const dashboard = () => {
     </div>
   );
 };
+}
 
 export default dashboard;

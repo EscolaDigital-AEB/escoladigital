@@ -26,8 +26,7 @@ async function getAllUsers(status) {
   const collection = db.collection("Users");
 
   const response = await collection
-    .find(query.active, opcoes)
-    .toArray();
+    .find(query.active, opcoes).toArray();
 
   if (response) {
     return response;
