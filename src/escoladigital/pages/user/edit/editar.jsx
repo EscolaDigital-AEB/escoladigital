@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Editar = () => {
   const [user, setUser] = useState({});
@@ -228,7 +229,7 @@ const Editar = () => {
               <span className="relative">Editar Conta!</span>
             </a>
           </Link>
-          
+
           </div>
         </form>
       </div>

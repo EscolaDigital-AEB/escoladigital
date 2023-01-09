@@ -3,7 +3,7 @@ import { parseCookies, setCookie} from 'nookies';
 import nookies from "nookies";
 import { useState, useEffect} from "react";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 
 
 
@@ -14,15 +14,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
 
-  const load = () => {
-    return (
-      <div className="flex justify-center items-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
-      </div>
-    );
-  };
-
-
+ 
   const rotas = useRouter();
 
   const options = {
@@ -187,14 +179,7 @@ useEffect(() => {
             </div>
             <br />
 
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Esqueceu a password?
-              </a>
-            </div>
+         
           </div>
 
           <div className=" md:mx-36 m-5  items-center justify-center">

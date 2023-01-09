@@ -10,14 +10,14 @@ const Dashboard = () => {
 
 
 
-
+  const rotas = useRouter();
 
   //if user dont have token go to login page
   useEffect(() => {
    const { token } = parseCookies();
       
   const { _id } = parseCookies();
-  const rotas = useRouter();
+  
     if (token == "" || token == null || token == undefined) {
       rotas.push("/login");
     } else {
