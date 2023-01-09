@@ -11,18 +11,6 @@ const Navbar = () => {
   const [navBg, setNavBg] = useState("#009FE5");
   const [linkColor, setLinkColor] = useState("#ffffff");
 
-  //if navbar is on "user/dashboard" page, dont show it
- 
-
-  //hide navbar 
-
-
-
-
- 
-
-
-  
   const handleNav = () => {
     setNav(!nav);
   };

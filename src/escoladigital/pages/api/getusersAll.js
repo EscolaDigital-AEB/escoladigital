@@ -4,16 +4,13 @@ export default async function handler(req, res) {
   if (req.method == "GET") {
     const response = await getAllUsers.getAllUsers();
     if (response != null) {
-      let count = {
-        quantidade: response.length,
-      };
-
+   
       //map response and then put it into object allUsers
       let allUsers = response.map((user) => {
         return {
           
           id: user._id,
-          nome: user.nome,
+          nome: user.name,
           email: user.email,
     
           role : user.role,
@@ -21,13 +18,6 @@ export default async function handler(req, res) {
           updatedAt: user.updatedAt
         };
       });
-
-      allUsers.push(count);
-      
-
-
-
-console.log(allUsers);
 
       res.json(allUsers);
      
