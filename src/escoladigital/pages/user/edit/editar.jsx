@@ -3,7 +3,7 @@ import { useState } from "react";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/router";
 
-const editar = () => {
+const Editar = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [password, setPassword] = useState("");
@@ -233,4 +233,4 @@ const editar = () => {
   );
 };
 
-export default editar;
+export default Editar;
