@@ -123,7 +123,7 @@ const Dashboard = () => {
                   </Link>
                 </li>
                 <li className="rounded-sm">
-                  <Link onClick={handleLogout} legacyBehavior>
+                  <Link href={handleLogout} onClick={handleLogout} legacyBehavior>
                     <a
                       
                       className="flex items-center p-2 space-x-3 rounded-md"
