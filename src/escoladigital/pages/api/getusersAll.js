@@ -19,7 +19,13 @@ export default async function handler(req, res) {
        
       };
 
-      res.json(all);
+      // put all in array
+
+let arrayAll = Object.values(all);
+console.log(arrayAll);
+
+
+      res.json(arrayAll);
       //
 
      

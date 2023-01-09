@@ -63,10 +63,10 @@ const dashboard = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.all)
+            console.log(data)
           setCount(data);
           setUsers(data);
-          console.log(setUsers)
+          
 
           setLoadingCount(false);
         })
@@ -98,13 +98,58 @@ const dashboard = () => {
   };
 
  
+  //map Users
   
+    const mapUsers = users.map((user) => {
 
-
-  
-
-
+       
         
+        return (
+            <tr key={user._id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center">
+                        <div className="ml-4">
+                            <div className="text-sm font-medium text-gray-900">
+                                {user.name}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                                {user.email}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{user.role}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        {user.status}
+                    </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {user.createdAt}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button
+                        id={user._id}
+                        onClick={handleEdit}
+                        className="text-indigo-600 hover:text-indigo-900"
+                    >
+                        Editar
+                    </button>
+                    <button
+                        id={user._id}
+                        onClick={handleDelete}
+                        className="text-indigo-600 hover:text-indigo-900"
+                    >
+                        Excluir
+                    </button>
+                </td>
+            </tr>
+        );
+
+    });
+
 
   return (
     <div className="min-h-full min-w-full flex items-center justify-center py-16 px-2 sm:px-6 lg:px-4 ">
