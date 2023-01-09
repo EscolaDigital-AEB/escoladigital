@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         email: body.email,
         password:body.password,
         name: body.name,
-        role: "user",
+        role: "admin",
         status: "active",
         createdAt: new Date(),
         updatedAt: new Date()      
