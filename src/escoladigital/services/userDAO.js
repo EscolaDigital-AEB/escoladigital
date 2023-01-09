@@ -61,6 +61,87 @@ async function getUserById(id) {
   }
 }
 
+// Function to update user
+/*
+			"_id": "63bb185b2fe36406d7fea458",
+			"email": "email4@email.com",
+			"name": "thiago",
+			"role": "user",
+			"status": "active",
+			"createdAt": "2023-01-08T19:24:10.752Z",
+			"updatedAt": "2023-01-08T19:24:10.752Z"
+*/
+
+async function updateUser(id, email, name, role, status) {
+  const { db } = await connect();
+
+  const collection = db.collection("Users");
+
+  const query = {
+    _id: ObjectID(id),
+  };
+
+  const update = {
+    $set: {
+      email: email,
+      name: name,
+      role: role,
+      status: status,
+    },
+  };
+
+  const response = await collection.updateOne( query, update);
+
+  if (response) {
+    return response;
+  } else {
+    return null;
+  }
+}
+
+// Function to delete setUserInactive
+async function setUserInactive(id) {
+  const { db } = await connect();
+
+  const collection = db.collection("Users");
+
+  const query = {
+    _id: ObjectID(id),
+  };
+
+  const update = {
+    $set: {
+      status: "inactive",
+    },
+  };
+
+  const response = await collection.updateOne( query, update);
+
+  if (response) {
+    return response;
+  } else {
+    return null;
+  }
+}
+
+// Function to delete user
+async function deleteUser(id) {
+  const { db } = await connect();
+
+  const collection = db.collection("Users");
+
+  const query = {
+    _id: ObjectID(id),
+  };
+
+  const response = await collection.deleteOne(query);
+
+  if (response) {
+    return response;
+  } else {
+    return null;
+  }
+}
 
 
 
@@ -133,4 +214,4 @@ async function register(
     }
   }
 }
-export default { login, register, getAllUsers, getUserById };
+export default { login, register, getAllUsers, getUserById, updateUser, deleteUser };
