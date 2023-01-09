@@ -71,7 +71,7 @@ async function getUserById(id) {
 			"updatedAt": "2023-01-08T19:24:10.752Z"
 */
 
-async function updateUser(id, email, name, role, status) {
+async function updateUser(id, email, name, password) {
   const { db } = await connect();
 
   const collection = db.collection("Users");
@@ -84,10 +84,18 @@ async function updateUser(id, email, name, role, status) {
     $set: {
       email: email,
       name: name,
-      role: role,
-      status: status,
+      password: password
+      
     },
   };
+    //cryp password
+  
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
+  update.$set.password = hash;
+
+  
+
 
   const response = await collection.updateOne( query, update);
 
@@ -115,6 +123,8 @@ async function setUserInactive(id) {
   };
 
   const response = await collection.updateOne( query, update);
+
+
 
   if (response) {
     return response;

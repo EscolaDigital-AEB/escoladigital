@@ -6,7 +6,7 @@ async function updateUser(id, email, name, role, status)
 export default async function handler(req, res) {
     if (req.method == "POST") {
         try{
-            const response = await updateUser.updateUser(req.body.id, req.body.email, req.body.name, req.body.role, req.body.status);
+            const response = await updateUser.updateUser(req.body.id, req.body.email, req.body.name, req.body.password);
             if (response != null) {
                 res.json(response);
             }

@@ -8,10 +8,7 @@ const dashboard = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const [loadingCount, setLoadingCount] = useState(true);
-  //const to contain the result of the fecth of all users
 
-  const [usersAll, setUsersAll] = useState([]);
 
   // Get user _id cokie
   const { _id } = parseCookies();
