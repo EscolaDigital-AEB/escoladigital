@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 
 
-const login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -228,4 +228,4 @@ useEffect(() => {
   );
 };
 
-export default login;
+export default Login;

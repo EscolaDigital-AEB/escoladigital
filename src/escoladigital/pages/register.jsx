@@ -1,9 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
 import nookies from "nookies";
+import Link from "next/link";
 
-
-const register = () => {
+const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +16,7 @@ const register = () => {
 
   //loading animation
 
-  const load = () => {
+  const Load = () => {
     return (
       <div className="flex justify-center items-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
@@ -101,12 +101,14 @@ return (
         </h2>
         <p className="mt-2 text-center text-md text-gray-600">
           Ou{" "}
-          <a
+          <Link legacyBehavior>
+          <a 
             href="/login"
             className="font-medium text-indigo-600 hover:text-indigo-500"
           >
             Entre na tua conta
           </a>
+          </Link>
         </p>
       </div>
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -199,6 +201,7 @@ return (
         </div>
 
         <div className=" md:mx-36 m-5  items-center justify-center">
+        <Link legacyBehavior>
           <a
             onClick={handleSubmit}
             className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
@@ -222,6 +225,7 @@ return (
             </span>
             <span className="relative">Criar Conta!</span>
           </a>
+          </Link>
         </div>
       </form>
     </div>
