@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import Head from 'next/head'
 const Editar = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);

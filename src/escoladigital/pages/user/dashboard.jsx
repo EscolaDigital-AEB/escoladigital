@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { parseCookies, destroyCookie } from "nookies";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import Head from 'next/head'
 const Dashboard = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import nookies from "nookies";
 import Link from "next/link";
 import { useState} from "react";
-
+import Head from 'next/head'
 const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

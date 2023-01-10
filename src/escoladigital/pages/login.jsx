@@ -4,7 +4,7 @@ import nookies from "nookies";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import Head from 'next/head'
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
