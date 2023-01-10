@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     const { _id } = parseCookies();
 
-    if (token == "" || token == null || token == undefined) {
+    if (token == "" || token == null || token == undefined || _id == "" || _id == null || _id == undefined)  {
       rotas.push("/login");
     } else {
       try {
@@ -96,6 +96,7 @@ const Dashboard = () => {
                 <li className="rounded-sm">
                   <Link href="/user/edit/editar" legacyBehavior>
                     <a
+
                      
                       className="flex items-center p-2 space-x-3 rounded-md"
                     >
@@ -123,9 +124,9 @@ const Dashboard = () => {
                   </Link>
                 </li>
                 <li className="rounded-sm">
-                  <Link href={handleLogout} onClick={handleLogout} legacyBehavior>
+                  <Link href="/login"  legacyBehavior>
                     <a
-                      
+                      onClick={handleLogout}
                       className="flex items-center p-2 space-x-3 rounded-md"
                     >
                       <svg

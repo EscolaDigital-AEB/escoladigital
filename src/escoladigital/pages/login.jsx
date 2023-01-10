@@ -1,11 +1,9 @@
 import React from "react";
-import { parseCookies, setCookie} from 'nookies';
+import { parseCookies, setCookie } from "nookies";
 import nookies from "nookies";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
-
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,8 +11,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-
- 
   const rotas = useRouter();
 
   const options = {
@@ -22,7 +18,6 @@ const Login = () => {
     maxAge: 60 * 60 * 24 * 7, // 1 week
     sameSite: true,
   };
-
 
   const HandleRememberMe = (e) => {
     if (e.target.checked) {
@@ -32,39 +27,31 @@ const Login = () => {
     }
   };
 
-//func to run on page lodads if user has token != null
-useEffect(() => {
-  const { token } = parseCookies();
-  if (token == "" || token == null || token == undefined) {
+  //func to run on page lodads if user has token != null
+  useEffect(() => {
+    const { token } = parseCookies();
+    if (token == "" || token == null || token == undefined) {
       //dot nothing
-  } else {
-    rotas.push("/user/dashboard");
-  }
-}, []);
-
-
-
+    } else {
+      rotas.push("/user/dashboard");
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
- 
+
     setCookie("email", email, options);
-  
 
     const user = {
       email: email,
-      password: password
-    }
-    
-   
- 
+      password: password,
+    };
+
     setLoading(true);
     setError("");
 
-    try 
-    {
-      const res = await fetch("http://localhost:3000/api/login", {
+    try {
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,12 +59,11 @@ useEffect(() => {
         body: JSON.stringify(user),
       });
       const data = await res.json();
-      
+
       if (data.error) {
         setError(data.error);
         setLoading(false);
       } else {
-        
         nookies.set(null, "token", data.token, {
           path: "/",
           maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -94,11 +80,7 @@ useEffect(() => {
       setError("Ocorreu um erro ao fazer login");
       setLoading(false);
     }
-    
-   
   };
-
-
 
   return (
     <div className="min-h-full min-w-full flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 ">
@@ -117,13 +99,10 @@ useEffect(() => {
           </h2>
           <p className="mt-2 text-center text-md text-gray-600">
             Ou{" "}
-            <Link  href="/register" legacyBehavior>
-            <a
-             
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Criar conta!
-            </a>
+            <Link href="/register" legacyBehavior>
+              <a className="font-medium text-indigo-600 hover:text-indigo-500">
+                Criar conta!
+              </a>
             </Link>
           </p>
         </div>
@@ -166,7 +145,7 @@ useEffect(() => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
-              onClick={HandleRememberMe}
+                onClick={HandleRememberMe}
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
@@ -180,35 +159,33 @@ useEffect(() => {
               </label>
             </div>
             <br />
-
-         
           </div>
 
           <div className=" md:mx-36 m-5  items-center justify-center">
-          <Link href={""} onClick={handleSubmit}  legacyBehavior>
-            <a
-                      
-              className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
-            >
-              <span className="absolute left-0 block w-full h-0 transition-all bg-indigo-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
-              <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
-              </span>
-              <span className="relative">Iniciar Sessão</span>
-            </a>
+            <Link href="/api/login" legacyBehavior>
+              <a
+                onClick={handleSubmit}
+                className="relative inline-flex items-center px-12 py-3 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50"
+              >
+                <span className="absolute left-0 block w-full h-0 transition-all bg-indigo-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+                </span>
+                <span className="relative">Iniciar Sessão</span>
+              </a>
             </Link>
           </div>
         </form>
