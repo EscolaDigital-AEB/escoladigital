@@ -83,7 +83,13 @@ const Login = () => {
   };
 
   return (
+    
     <div className="min-h-full min-w-full flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 ">
+           <Head>
+      <title>AEB@Digital</title>
+        <link rel="icon" href="/favicon.ico" />
+
+      </Head>
       <div className="w-full mt-32 p-6 m-auto bg-[#ECF0F3] rounded-md  ring-2 ring-[#0073A5] lg:max-w-xl shadow-xl shadow-gray-400">
         <div className=" flex-col items-center justify-center">
           <img

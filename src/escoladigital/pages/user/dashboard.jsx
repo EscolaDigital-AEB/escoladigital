@@ -58,6 +58,11 @@ const Dashboard = () => {
   return (
     <div className="min-h-full min-w-full flex items-center justify-center py-16 px-2 sm:px-6 lg:px-4 ">
       <br />
+      <Head>
+      <title>AEB@Digital</title>
+        <link rel="icon" href="/favicon.ico" />
+
+      </Head>
 
       <div className="flex pt-10 space">
         <div className="flex flex-col h-screen p-3  fixed left-[5%] bg-white shadow w-60 ">
